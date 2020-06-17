@@ -53,5 +53,26 @@ dataread4 = readtable ('C:\Users\Asus\Desktop\necessary\Data_4.csv');
     %value with the lower threshold, else if it is greater than the upper
     %threshold matlab fill it with the upper threshold
     
-% Dealing with Categorical Data
+   
+% Dealing with Categorical Data    
+    datacategorical = categorical_data_to_dummy_variables(dataread5, dataread5.Location);
+    datacategorical.Location = [];
     
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%SCRIPTS%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Function to handle categorical data:
+    function data = categorical_data_to_dummy_variables(data,variable)
+unique_values = unique(variable);
+for i=1:length(unique_values)
+    dummy_variable(:,i) = double(ismember(variable,unique_values{i})) ;
+end 
+T = table;
+[rows, col] = size(dummy_variable);
+for i=1:col
+    T1 = table(dummy_variable(:,i));
+    T1.Properties.VariableNames = unique_values(i);
+    T = [T T1];
+end 
+    data = [T data]; 
+    end
