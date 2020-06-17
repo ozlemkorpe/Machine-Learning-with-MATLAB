@@ -34,4 +34,8 @@ classification_model = fitcknn(data, 'Purchased~Age+EstimatedSalary'); %Classifi
 %0.2 percentage for testing.
 
 cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.2); %Built-in function for partitioning
+cross_validated_model = crossval(classification_model, 'cvpartition', cv); %Use training set only to built model 
+
+%%-----------Make predictions for the testing set
+predict(cross_validated_model.Trained{1}, test(cv));
 
