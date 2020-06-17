@@ -45,4 +45,13 @@ dataread4 = readtable ('C:\Users\Asus\Desktop\necessary\Data_4.csv');
     
     outlierdeleted_dataread5 = dataread5(~outliers, :); % convert 1s to 0s, 0s to 1. 0 is outlier now. And remove.
     
+    % Detect and fill the value of outlier with mean or median.
+    % Age = filloutlier(dataread5.Age,'center') %Fill the outliers with center value
+    
+    Age = filloutliers(dataread5.Age,'clip');
+    %If the value is lower then the lower threshold matlab will fill the
+    %value with the lower threshold, else if it is greater than the upper
+    %threshold matlab fill it with the upper threshold
+    
+% Dealing with Categorical Data
     

@@ -41,5 +41,15 @@ dataread4 = readtable ('C:\Users\Asus\Desktop\necessary\Data_4.csv');
     
     % Method 1: Deleting Rows
     outliers = isoutlier(dataread5.Age); % 10X1 array consist of 1s and 0s. 1 is where outlier is
+    % Calculates the median and decides 3 times greater or lesser of the median as outlier
+    
+    outlierdeleted_dataread5 = dataread5(~outliers, :); % convert 1s to 0s, 0s to 1. 0 is outlier now. And remove.
+    
+    % Detect and fill the value of outlier with mean or median.
+    Age = filloutlier(dataread5.Age,'center') %Fill the outliers with center value
+    
+    %If the value is lower then the lower treshold matlab will fill the
+    %value with the lower treshold, else if it is greater than the upper
+    %treshold matlab 
     
     
