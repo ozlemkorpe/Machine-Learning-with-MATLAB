@@ -54,14 +54,25 @@ dataread4 = readtable ('C:\Users\Asus\Desktop\necessary\Data_4.csv');
     %threshold matlab fill it with the upper threshold
     
    
-% Dealing with Categorical Data    
+    %------ Dealing with Categorical Data without order relation
     datacategorical = categorical_data_to_dummy_variables(dataread5, dataread5.Location);
     datacategorical.Location = [];
-    
-    
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%SCRIPTS%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Function to handle categorical data:
+    % Categorical data must not have space character.
+    
+    %----- Dealing with Categorical Data with order relation
+    
+  dataread6 = readtable ('C:\Users\Asus\Desktop\necessary\Data_6.csv');
+  new_variable = encoding_categorical_data(dataread6.YearlyIncome,{'Low','Average','High','Very High'}, [1 2 3 5]) ;
+  encodeddata6 = dataread6;
+  encodeddata6.YearlyIncome = new_variable ;
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SAVE PROCESSED DATA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+writetable(encodeddata6, 'C:\Users\Asus\Desktop\saved_data.csv');
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SCRIPTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Function to handle categorical data which does not have order relation:
     function data = categorical_data_to_dummy_variables(data,variable)
 unique_values = unique(variable);
 for i=1:length(unique_values)
@@ -76,3 +87,13 @@ for i=1:col
 end 
     data = [T data]; 
     end
+
+    %Function to handle categorical data which have an order relation
+function new_variable = encoding_categorical_data(variable,values_set,numbers) 
+[rows,col] = size(variable);
+new_variable = zeros(rows,1); 
+for i=1:length(values_set)
+    indices = ismember(variable,values_set{i});
+    new_variable(indices) = numbers(i);
+end 
+end 

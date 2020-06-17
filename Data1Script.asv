@@ -46,10 +46,53 @@ dataread4 = readtable ('C:\Users\Asus\Desktop\necessary\Data_4.csv');
     outlierdeleted_dataread5 = dataread5(~outliers, :); % convert 1s to 0s, 0s to 1. 0 is outlier now. And remove.
     
     % Detect and fill the value of outlier with mean or median.
-    Age = filloutlier(dataread5.Age,'center') %Fill the outliers with center value
+    % Age = filloutlier(dataread5.Age,'center') %Fill the outliers with center value
     
-    %If the value is lower then the lower treshold matlab will fill the
-    %value with the lower treshold, else if it is greater than the upper
-    %treshold matlab 
+    Age = filloutliers(dataread5.Age,'clip');
+    %If the value is lower then the lower threshold matlab will fill the
+    %value with the lower threshold, else if it is greater than the upper
+    %threshold matlab fill it with the upper threshold
     
+   
+    %------ Dealing with Categorical Data without order relation
+    datacategorical = categorical_data_to_dummy_variables(dataread5, dataread5.Location);
+    datacategorical.Location = [];
+
+    % Categorical data must not have space character.
     
+    %----- Dealing with Categorical Data with order relation
+    
+  dataread6 = readtable ('C:\Users\Asus\Desktop\necessary\Data_6.csv');
+  new_variable = encoding_categorical_data(dataread6.YearlyIncome,{'Low','Average','High','Very High'}, [1 2 3 5]) ;
+  encodeddata6 = dataread6;
+  encodeddata6.YearlyIncome = new_variable ;
+  
+  
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%SCRIPTS%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Function to handle categorical data which does not have order relation:
+    function data = categorical_data_to_dummy_variables(data,variable)
+unique_values = unique(variable);
+for i=1:length(unique_values)
+    dummy_variable(:,i) = double(ismember(variable,unique_values{i})) ;
+end 
+T = table;
+[rows, col] = size(dummy_variable);
+for i=1:col
+    T1 = table(dummy_variable(:,i));
+    T1.Properties.VariableNames = unique_values(i);
+    T = [T T1];
+end 
+    data = [T data]; 
+    end
+
+    %Function to handle categorical data which have an order relation
+function new_variable = encoding_categorical_data(variable,values_set,numbers) 
+[rows,col] = size(variable);
+new_variable = zeros(rows,1); 
+for i=1:length(values_set)
+    indices = ismember(variable,values_set{i});
+    new_variable(indices) = numbers(i);
+end 
+end 
