@@ -27,3 +27,11 @@ stand_estimatedsalary = (data.EstimatedSalary - mean(data.EstimatedSalary)) / st
 data.EstimatedSalary = stand_estimatedsalary;
 
 %-----------Classifying data
+classification_model = fitcknn(data, 'Purchased~Age+EstimatedSalary'); %Classification Model
+
+%-----------Divide data into training and testing sets
+%Numberof observations, classification models, percentage. Randomly choose
+%0.2 percentage for testing.
+
+cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.2); %Built in function for partitioning
+
