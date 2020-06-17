@@ -36,6 +36,12 @@ classification_model = fitcknn(data, 'Purchased~Age+EstimatedSalary'); %Classifi
 cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.2); %Built-in function for partitioning
 cross_validated_model = crossval(classification_model, 'cvpartition', cv); %Use training set only to built model 
 
-%%-----------Make predictions for the testing set
-predict(cross_validated_model.Trained{1}, test(cv));
+%-----------Make predictions for the testing set
+Predictions = predict(cross_validated_model.Trained{1}, data(test(cv),1:end-1));
+
+%-----------Analyzing the predictions
+    %Confusion Matrix: / diagonal will give the false predictions, \ will
+    %be the rigth predictions.
+Results = confusionmat(cross_validated_model.Y(test(cv)),Predictions); 
+%data.Purchased(test(cv));
 
