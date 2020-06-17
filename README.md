@@ -7,6 +7,14 @@ Introductory write up for machine learning by using MATLAB. It consist all neces
   - Feature Scaling
   - Handling Categorical Data
 - Partitioning
+- Training
+- Prediction
+- Analyzing the Result
+  - Confussion Matrix
+  
+### Algorithms
+- K-Nearest Neighbour
+
 
 ### Prerequisites
 This write up is prepared by using MATLAB 2019b. Installing the MATLAB is a must. 
