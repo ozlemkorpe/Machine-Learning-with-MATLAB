@@ -33,5 +33,5 @@ classification_model = fitcknn(data, 'Purchased~Age+EstimatedSalary'); %Classifi
 %Numberof observations, classification models, percentage. Randomly choose
 %0.2 percentage for testing.
 
-cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.2); %Built in function for partitioning
+cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.2); %Built-in function for partitioning
 
