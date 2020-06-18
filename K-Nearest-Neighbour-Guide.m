@@ -45,3 +45,8 @@ Predictions = predict(cross_validated_model.Trained{1}, data(test(cv),1:end-1));
 Results = confusionmat(cross_validated_model.Y(test(cv)),Predictions); 
 %data.Purchased(test(cv));
 
+%-----------Showing Results in Graphical View
+
+
+
+
