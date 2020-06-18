@@ -1,0 +1,21 @@
+%----------------Import Data
+titanic_train = readtable('C:\Users\Asus\Desktop\Kaggle_Titanic_Competition\titanic_train.csv');
+% titanic_test = readtable('C:\Users\Asus\Desktop\Kaggle_Titanic_Competition\titanic_test.csv');
+
+%----------------Missing data check
+titanic_train_missing = sum(ismissing(titanic_train));
+% titanic_test_missing = sum(ismissing(titanic_test));
+
+%----------------Handling Missing Values
+%For age column which has 6 missing values use mean value and replace with missing value
+        mean_age = cast(mean(titanic_train.Age, 'omitnan'),'uint8') ; %Cast double to integer
+        filled_age = fillmissing(titanic_train.Age, 'constant', mean_age);
+        filled_data = titanic_train ;
+        filled_data.Age = filled_age;
+        % Test if the any missing value left
+        test_for_filled_data =  sum(ismissing(filled_data));
+ 
+%----------------Chechk for Outliers
+plot(filled_data.Age) %Age varies between 0-80 which can be accepted as normal
+tf = isdouble(0.5);%Check for if is there double data for age
+%new_data=filled_data(~any(isdouble(filled_data),2),:);
