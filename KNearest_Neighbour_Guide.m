@@ -47,6 +47,37 @@ Results = confusionmat(cross_validated_model.Y(test(cv)),Predictions);
 
 %-----------Showing Results in Graphical View
 
+labels = unique(data.Purchased); %labels contains unique classes of Purchased
+classifier_name = 'K-Nearest Neigbor (Testing Results)';
+
+%Set ranges for age and EstimatedSalary
+Age_range = min(data.Age(training(cv)))-1:0.01:max(data.Age(training(cv)))+1; 
+Estimated_salary_range = min(data.EstimatedSalary(training(cv)))-1:0.01:max(data.EstimatedSalary(training(cv)))+1;
+
+[xx1, xx2] = meshgrid(Age_range,Estimated_salary_range); %2d grid for age range and estimated salary range
+XGrid = [xx1(:) xx2(:)]; %Create grid
+
+predictions_meshgrid = predict(cross_validated_model.Trained{1},XGrid);
+
+gscatter(xx1(:), xx2(:), predictions_meshgrid,'rgb'); %group values
+
+hold on
+
+testing_data =  data(test(cv),:);
+Y = ismember(testing_data.Purchased,labels{1});
+ 
+scatter(testing_data.Age(Y),testing_data.EstimatedSalary(Y), 'o' , 'MarkerEdgeColor', 'black', 'MarkerFaceColor', 'red');
+scatter(testing_data.Age(~Y),testing_data.EstimatedSalary(~Y) , 'o' , 'MarkerEdgeColor', 'black', 'MarkerFaceColor', 'green');
+
+
+xlabel('Age');
+ylabel('Estimated Salary');
+
+title(classifier_name);
+legend off, axis tight
+
+legend(labels,'Location',[0.45,0.01,0.45,0.05],'Orientation','Horizontal');
+
 
 
 
