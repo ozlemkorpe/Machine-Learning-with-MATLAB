@@ -57,7 +57,7 @@ dataread4 = readtable ('C:\Users\Asus\Desktop\necessary\Data_4.csv');
     %------ Dealing with Categorical Data without order relation
     datacategorical = categorical_data_to_dummy_variables(dataread5, dataread5.Location);
     datacategorical.Location = [];
-
+    
     % Categorical data must not have space character.
     
     %----- Dealing with Categorical Data with order relation
