@@ -15,6 +15,7 @@ Introductory write-up for machine learning by using MATLAB. It consist all neces
 ## Algorithms
 - K-Nearest Neighbour
 - Decision Tree
-
+## Usage
+  You may use Preprocessing Guide to import and process data and then decide which algorithm to make prediction and analyze the data.
 ## Authors
 * **Özlem Körpe** - *Initial work* - [ozlemkorpe](https://github.com/ozlemkorpe)
