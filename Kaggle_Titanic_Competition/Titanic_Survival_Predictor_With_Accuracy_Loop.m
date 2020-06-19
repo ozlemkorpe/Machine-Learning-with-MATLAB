@@ -1,3 +1,4 @@
+%The exact same method but with accuracy calculation
 %This version produces the right result around %72 and wrong result around %28
 clear
 %----------------Import Data
@@ -51,7 +52,10 @@ standardized_data.Parch = stand_parch;
 %----------------Classification with K-Nearest Neighbours Algorithm
 classification_model = fitcknn(standardized_data, 'Survived~Age+Fare+Parch+SibSp+female+male'); %Classification Model
 
-% %----------------Partitioning
+%----------------FOR LOOP FOR CALCULATING ACCURACY IN A NUMBER OF EXECUTION
+general_accuracy = 0;
+for a = 1:100
+ %----------------Partitioning
 cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.2); %Built-in function for partitioning
 cross_validated_model = crossval(classification_model, 'cvpartition', cv); %Use training set only to built model 
 
@@ -65,8 +69,13 @@ Results = confusionmat(cross_validated_model.Y(test(cv)),Predictions);
 right_results = Results(1,1) + Results(2,2);
 wrong_results = Results(1,2) + Results(2,1);
 
-truth_score = right_results /(right_results + wrong_results)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SCRIPTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+truth_score = right_results /(right_results + wrong_results);
+
+general_accuracy = general_accuracy + truth_score;
+end
+
+general_accuracy = general_accuracy / a; 
+
 
 % Function to handle categorical data which does not have order relation:
     function data = categorical_data_to_dummy_variables(data,variable)
@@ -83,4 +92,3 @@ for i=1:col
 end 
     data = [T data]; 
     end
-
