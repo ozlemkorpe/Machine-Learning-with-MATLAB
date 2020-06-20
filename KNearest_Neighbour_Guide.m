@@ -28,6 +28,11 @@ data.EstimatedSalary = stand_estimatedsalary;
 
 %-----------Classifying data
 classification_model = fitcknn(data, 'Purchased~Age+EstimatedSalary'); %Classification Model
+classification_model.NumNeighbours = 5; %Change number of neighbours.
+%classification_model.NumNeighbors = 3; % Change the neighbor number to get better result
+%classification_model = fitcknn(standardized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass','NumNeighbors', 3);
+%classification_model = fitcknn(standardized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass','Distance', 'seuclidean');
+
 
 %-----------Divide data into training and testing sets
 %Numberof observations, classification models, percentage. Randomly choose

@@ -33,6 +33,15 @@ titanic_train_missing = sum(ismissing(titanic_train));
 %----------------Check for Outliers
 %plot(filled_data.Age) %Age varies between 0-80 which can be accepted as normal
 
+toDelete = filled_data.Age < 1;
+filled_data(toDelete,:) = [];
+
+toDelete2 = filled_data.Age > 100;
+filled_data(toDelete2,:) = [];
+
+toDelete3 = mod(filled_data.Age,1) ~= 0;
+filled_data(toDelete3,:) = [];
+
 %----------------Feature Scaling with Standardization Method
 normalized_data = filled_data ;
 %Feature scaling for the Age
@@ -53,12 +62,12 @@ normalized_data.Pclass = normalized_pclass;
 
 %----------------Classification with K-Nearest Neighbours Algorithm
 classification_model = fitcknn(normalized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass'); %Classification Model
-
+classification_model.NumNeighbors = 3;
 %----------------FOR LOOP FOR CALCULATING ACCURACY IN A NUMBER OF EXECUTION
 general_accuracy = 0;
-for a = 1:100
+for a = 1:1000
  %----------------Partitioning
-cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.2); %Built-in function for partitioning
+cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.1); %Built-in function for partitioning
 cross_validated_model = crossval(classification_model, 'cvpartition', cv); %Use training set only to built model 
 
 %----------------Prediction
@@ -77,7 +86,7 @@ general_accuracy = general_accuracy + truth_score;
 end
 
 general_accuracy = general_accuracy / a; 
-
+disp(general_accuracy)
 
 % Function to handle categorical data which does not have order relation:
     function data = categorical_data_to_dummy_variables(data,variable)

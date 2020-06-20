@@ -54,9 +54,9 @@ standardized_data.Pclass = stand_class;
 
 %----------------Classification with K-Nearest Neighbours Algorithm
 classification_model = fitcknn(standardized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass'); %Classification Model
-
+classification_model.NumNeighbors = 3;
 % %----------------Partitioning
-cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.2); %Built-in function for partitioning
+cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.1); %Built-in function for partitioning
 cross_validated_model = crossval(classification_model, 'cvpartition', cv); %Use training set only to built model 
 
 %----------------Prediction
@@ -69,7 +69,7 @@ Results = confusionmat(cross_validated_model.Y(test(cv)),Predictions);
 right_results = Results(1,1) + Results(2,2);
 wrong_results = Results(1,2) + Results(2,1);
 
-truth_score = right_results /(right_results + wrong_results)
+truth_score = right_results /(right_results + wrong_results);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SCRIPTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Function to handle categorical data which does not have order relation:
