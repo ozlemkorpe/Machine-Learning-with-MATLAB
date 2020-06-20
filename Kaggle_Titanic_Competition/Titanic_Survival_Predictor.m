@@ -1,5 +1,5 @@
 %This version produces the right result around %72 and wrong result around %28
-clear
+
 %----------------Import Data
 titanic_train = readtable('C:\Users\Asus\Desktop\Kaggle_Titanic_Competition\titanic_train.csv');
 % titanic_test = readtable('C:\Users\Asus\Desktop\Kaggle_Titanic_Competition\titanic_test.csv');
@@ -46,10 +46,14 @@ standardized_data.SibSp = stand_sibspb;
 %Feature scaling for the Parch
 stand_parch = (filled_data.Parch - mean(filled_data.Parch)) / std(filled_data.Parch);
 standardized_data.Parch = stand_parch;
+%Feature scaling fot the Pclass
+stand_class = (filled_data.Pclass - mean(filled_data.Pclass)) / std(filled_data.Pclass);
+standardized_data.Pclass = stand_class;
+
 
 
 %----------------Classification with K-Nearest Neighbours Algorithm
-classification_model = fitcknn(standardized_data, 'Survived~Age+Fare+Parch+SibSp+female+male'); %Classification Model
+classification_model = fitcknn(standardized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass'); %Classification Model
 
 % %----------------Partitioning
 cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.2); %Built-in function for partitioning

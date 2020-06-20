@@ -1,5 +1,5 @@
-%The exact same method but with accuracy calculation
-%This version produces the right result around %72 and wrong result around %28
+%The version with normalization method
+
 clear
 %----------------Import Data
 titanic_train = readtable('C:\Users\Asus\Desktop\Kaggle_Titanic_Competition\titanic_train.csv');
@@ -34,25 +34,25 @@ titanic_train_missing = sum(ismissing(titanic_train));
 %plot(filled_data.Age) %Age varies between 0-80 which can be accepted as normal
 
 %----------------Feature Scaling with Standardization Method
-standardized_data = filled_data ;
+normalized_data = filled_data ;
 %Feature scaling for the Age
-stand_age = (filled_data.Age - mean(filled_data.Age)) / std(filled_data.Age);
-standardized_data.Age = stand_age;
+normalized_age = (filled_data.Age - min(filled_data.Age)) / (max(filled_data.Age) - min(filled_data.Age));
+normalized_data.Age = normalized_age;
 %Feature scaling for the Fare
-stand_fare = (filled_data.Fare - mean(filled_data.Fare)) / std(filled_data.Fare);
-standardized_data.Fare = stand_fare;
+normalized_fare = (filled_data.Fare - min(filled_data.Fare)) / (max(filled_data.Fare) - min(filled_data.Fare));
+normalized_data.Fare= normalized_fare;
 %Feature scaling for the SibSp
-stand_sibspb = (filled_data.SibSp - mean(filled_data.SibSp)) / std(filled_data.SibSp);
-standardized_data.SibSp = stand_sibspb;
+normalized_sibsp = (filled_data.SibSp - min(filled_data.SibSp)) / (max(filled_data.SibSp) - min(filled_data.SibSp));
+normalized_data.SibSp = normalized_sibsp;
 %Feature scaling for the Parch
-stand_parch = (filled_data.Parch - mean(filled_data.Parch)) / std(filled_data.Parch);
-standardized_data.Parch = stand_parch;
+normalized_parch = (filled_data.Parch - min(filled_data.Parch)) / (max(filled_data.Parch) - min(filled_data.Parch));
+normalized_data.Parch = normalized_parch;
 %Feature scaling fot the Pclass
-stand_class = (filled_data.Pclass - mean(filled_data.Pclass)) / std(filled_data.Pclass);
-standardized_data.Pclass = stand_class;
+normalized_pclass = (filled_data.Pclass - min(filled_data.Pclass)) / (max(filled_data.Pclass) - min(filled_data.Pclass));
+normalized_data.Pclass = normalized_pclass;
 
 %----------------Classification with K-Nearest Neighbours Algorithm
-classification_model = fitcknn(standardized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass'); %Classification Model
+classification_model = fitcknn(normalized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass'); %Classification Model
 
 %----------------FOR LOOP FOR CALCULATING ACCURACY IN A NUMBER OF EXECUTION
 general_accuracy = 0;
@@ -62,7 +62,7 @@ cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.2); %Built-in
 cross_validated_model = crossval(classification_model, 'cvpartition', cv); %Use training set only to built model 
 
 %----------------Prediction
-Predictions = predict(cross_validated_model.Trained{1}, standardized_data(test(cv),1:end-1));
+Predictions = predict(cross_validated_model.Trained{1}, normalized_data(test(cv),1:end-1));
 
 %----------------Analyzing the Result
 %Confusion Matrix: / diagonal will give the false predictions, \ will
