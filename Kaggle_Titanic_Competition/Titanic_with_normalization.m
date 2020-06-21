@@ -20,15 +20,10 @@ titanic_train_missing = sum(ismissing(titanic_train));
         mean_fare = cast(mean(titanic_train.Fare, 'omitnan'),'uint8') ; %Cast double to integer
         filled_fare = fillmissing(titanic_train.Fare, 'constant', mean_fare);
         filled_data.Fare = filled_fare;
-       
-        % Test if the any missing value left
-        test_for_filled_data =  sum(ismissing(filled_data));
         
 %------ Dealing with Categorical Data without order relation
         filled_data = categorical_data_to_dummy_variables(filled_data, filled_data.Sex); %Seperate genders into different columns
         filled_data.Sex = [];
-        
-
         
 %----------------Check for Outliers
 %plot(filled_data.Age) %Age varies between 0-80 which can be accepted as normal
@@ -42,7 +37,7 @@ filled_data(toDelete2,:) = [];
 toDelete3 = mod(filled_data.Age,1) ~= 0;
 filled_data(toDelete3,:) = [];
 
-%----------------Feature Scaling with Standardization Method
+%----------------Feature Scaling with Normalization Method
 normalized_data = filled_data ;
 %Feature scaling for the Age
 normalized_age = (filled_data.Age - min(filled_data.Age)) / (max(filled_data.Age) - min(filled_data.Age));
@@ -86,7 +81,10 @@ general_accuracy = general_accuracy + truth_score;
 end
 
 general_accuracy = general_accuracy / a; 
-disp(general_accuracy)
+
+%Print general accuracy 
+disp('General accuracy is:');
+disp(general_accuracy);
 
 % Function to handle categorical data which does not have order relation:
     function data = categorical_data_to_dummy_variables(data,variable)

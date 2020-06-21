@@ -10,19 +10,16 @@ titanic_train_missing = sum(ismissing(titanic_train));
 
 %----------------Handling Missing Values
 %For age column which has 6 missing values use mean value and replace with missing value
+        filled_data = titanic_train ;
 %filled_data = rmmissing(titanic_train);
         mean_age = cast(mean(titanic_train.Age, 'omitnan'),'uint8') ; %Cast double to integer
         filled_age = fillmissing(titanic_train.Age, 'constant', mean_age);
-        filled_data = titanic_train ;
         filled_data.Age = filled_age;
  %For Fare column which has 6 missing values use mean value and replace with missing value        
         mean_fare = cast(mean(titanic_train.Fare, 'omitnan'),'uint8') ; %Cast double to integer
         filled_fare = fillmissing(titanic_train.Fare, 'constant', mean_fare);
         filled_data.Fare = filled_fare;
-       
-        % Test if the any missing value left
-        test_for_filled_data =  sum(ismissing(filled_data));
-        
+           
 %------ Dealing with Categorical Data without order relation
         filled_data = categorical_data_to_dummy_variables(filled_data, filled_data.Sex); %Seperate genders into different columns
         filled_data.Sex = [];
