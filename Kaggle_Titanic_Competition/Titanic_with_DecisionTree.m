@@ -55,14 +55,15 @@ normalized_data.Parch = normalized_parch;
 normalized_pclass = (filled_data.Pclass - min(filled_data.Pclass)) / (max(filled_data.Pclass) - min(filled_data.Pclass));
 normalized_data.Pclass = normalized_pclass;
 
-%----------------Classification with K-Nearest Neighbours Algorithm
-classification_model = fitcknn(normalized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass'); %Classification Model
-classification_model.NumNeighbors = 3;
+%----------------Classification with Decision Tree
+classification_model = fitctree(normalized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass','MaxNumSplits',37); %Classification Model
+%classification_model.NumNeighbors = 3;
+
 %----------------FOR LOOP FOR CALCULATING ACCURACY IN A NUMBER OF EXECUTION
 general_accuracy = 0;
-for a = 1:1
+for a = 1:1000
  %----------------Partitioning
-cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.1); %Built-in function for partitioning
+cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.02); %Built-in function for partitioning
 cross_validated_model = crossval(classification_model, 'cvpartition', cv); %Use training set only to built model 
 
 %----------------Prediction
@@ -81,12 +82,12 @@ general_accuracy = general_accuracy + truth_score;
 end
 
 general_accuracy = general_accuracy / a; 
-
 %Print general accuracy 
 disp('General accuracy is:');
 disp(general_accuracy);
 
-
+%----------------Visualize the result
+view(cross_validated_model.Trained{1}, 'Mode', 'Graph');
 
 % Function to handle categorical data which does not have order relation:
     function data = categorical_data_to_dummy_variables(data,variable)
