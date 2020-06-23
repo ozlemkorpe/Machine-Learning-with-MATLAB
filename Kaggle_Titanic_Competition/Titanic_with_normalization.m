@@ -56,11 +56,11 @@ normalized_pclass = (filled_data.Pclass - min(filled_data.Pclass)) / (max(filled
 normalized_data.Pclass = normalized_pclass;
 
 %----------------Classification with K-Nearest Neighbours Algorithm
-classification_model = fitcknn(normalized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass'); %Classification Model
-classification_model.NumNeighbors = 3;
+classification_model = fitcnb(normalized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass'); %Classification Model
+%classification_model.NumNeighbors = 3;
 %----------------FOR LOOP FOR CALCULATING ACCURACY IN A NUMBER OF EXECUTION
 general_accuracy = 0;
-for a = 1:1000
+for a = 1:1
  %----------------Partitioning
 cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.1); %Built-in function for partitioning
 cross_validated_model = crossval(classification_model, 'cvpartition', cv); %Use training set only to built model 
@@ -85,6 +85,8 @@ general_accuracy = general_accuracy / a;
 %Print general accuracy 
 disp('General accuracy is:');
 disp(general_accuracy);
+
+
 
 % Function to handle categorical data which does not have order relation:
     function data = categorical_data_to_dummy_variables(data,variable)
