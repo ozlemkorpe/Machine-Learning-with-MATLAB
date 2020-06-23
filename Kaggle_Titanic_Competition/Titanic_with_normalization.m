@@ -56,8 +56,8 @@ normalized_pclass = (filled_data.Pclass - min(filled_data.Pclass)) / (max(filled
 normalized_data.Pclass = normalized_pclass;
 
 %----------------Classification with K-Nearest Neighbours Algorithm
-classification_model = fitcnb(normalized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass'); %Classification Model
-%classification_model.NumNeighbors = 3;
+classification_model = fitcknn(normalized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass'); %Classification Model
+classification_model.NumNeighbors = 3;
 %----------------FOR LOOP FOR CALCULATING ACCURACY IN A NUMBER OF EXECUTION
 general_accuracy = 0;
 for a = 1:1

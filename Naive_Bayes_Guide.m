@@ -15,6 +15,8 @@ data.EstimatedSalary = stand_estimted_salary;
 
 %---------------Classifying Data  
 classification_model = fitcnb(data,'Purchased~Age+EstimatedSalary');
+% Uses normal distribution as default
+% classification_model = fitcnb(normalized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass','Distribution','kernel');
 
 %---------------Partitioning
 cv = cvpartition(classification_model.NumObservations, 'HoldOut', 0.2);
