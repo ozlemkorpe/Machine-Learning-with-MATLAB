@@ -55,6 +55,9 @@ legend off, axis tight
  
 legend(labels,'Location',[0.45,0.01,0.45,0.05],'Orientation','Horizontal');
  
+%---------------Creating View
+%view(cross_validated_model.Trained{1}) %if statements for tree in console
+view(cross_validated_model.Trained{1}, 'Mode', 'Graph');
 %---------------Visualizing Test Results 
 labels = unique(data.Purchased);
 classifier_name = 'Decision Tree (Testing Results)';
