@@ -11,12 +11,14 @@ stand_estimted_salary = (data.EstimatedSalary - mean(data.EstimatedSalary))/std(
 data.EstimatedSalary = stand_estimted_salary; 
 
 %---------------Classifying Data  
-%classification_model = fitctree(data,'Purchased~Age+EstimatedSalary');
-%
-
+classification_model = fitctree(data,'Purchased~Age+EstimatedSalary');
 %Max number of branch nodes / splits
- classification_model = fitctree(data, 'Purchased~Age+EstimatedSalary','MaxNumSplits',7);
-
+%classification_model = fitctree(data, 'Purchased~Age+EstimatedSalary','MaxNumSplits',7);
+%Min size of parent
+%classification_model = fitctree(data, 'Purchased~Age+EstimatedSalary','MinParentSize',20);
+%classification_model = fitctree(data, 'Purchased~Age+EstimatedSalary','SplitCriterion','gdi');
+%classification_model = fitctree(data, 'Purchased~Age+EstimatedSalary','SplitCriterion','twoing');
+%classification_model = fitctree(data, 'Purchased~Age+EstimatedSalary','SplitCriterion','deviance');
 %---------------Partitioning
 cv = cvpartition(classification_model.NumObservations, 'HoldOut', 0.2);
 cross_validated_model = crossval(classification_model,'cvpartition',cv); 

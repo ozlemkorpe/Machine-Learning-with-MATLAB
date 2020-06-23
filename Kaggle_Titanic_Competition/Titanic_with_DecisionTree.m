@@ -25,6 +25,10 @@ titanic_train_missing = sum(ismissing(titanic_train));
         filled_data = categorical_data_to_dummy_variables(filled_data, filled_data.Sex); %Seperate genders into different columns
         filled_data.Sex = [];
         
+        %For embarked option
+%         additional_data = filled_data;
+%         additional_data = categorical_data_to_dummy_variables(filled_data, filled_data.Embarked);
+%         additional_data.Embarked = [];
 %----------------Check for Outliers
 %plot(filled_data.Age) %Age varies between 0-80 which can be accepted as normal
 
@@ -57,13 +61,12 @@ normalized_data.Pclass = normalized_pclass;
 
 %----------------Classification with Decision Tree
 classification_model = fitctree(normalized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass','MaxNumSplits',37); %Classification Model
-%classification_model.NumNeighbors = 3;
 
 %----------------FOR LOOP FOR CALCULATING ACCURACY IN A NUMBER OF EXECUTION
 general_accuracy = 0;
-for a = 1:1000
+for a = 1:1
  %----------------Partitioning
-cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.02); %Built-in function for partitioning
+cv = cvpartition(classification_model.NumObservations,'HoldOut', 0.03); %Built-in function for partitioning
 cross_validated_model = crossval(classification_model, 'cvpartition', cv); %Use training set only to built model 
 
 %----------------Prediction
