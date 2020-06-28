@@ -1,7 +1,4 @@
-%%%-------------Naive Bayes Algorithm
-
-% P(A|B) = (P(B|A) x P(A)) / P(B)
-% P(A) = Occurence of A / Total
+%%%-------------Support Vector Machines (SVM)
 
 %---------------Importing Dataset
 data = readtable('C:\Users\Asus\Desktop\necessary\Naive Bayes\Social_Network_Ads.csv');
@@ -14,7 +11,7 @@ stand_estimted_salary = (data.EstimatedSalary - mean(data.EstimatedSalary))/std(
 data.EstimatedSalary = stand_estimted_salary; 
 
 %---------------Classifying Data  
-classification_model = fitcnb(data,'Purchased~Age+EstimatedSalary');
+classification_model = fitcsvm(data,'Purchased~Age+EstimatedSalary');
 % Uses normal distribution as default
 % classification_model = fitcnb(normalized_data, 'Survived~Age+Fare+Parch+SibSp+female+male+Pclass','Distribution','kernel');
 
@@ -30,7 +27,7 @@ Results = confusionmat(cross_validated_model.Y(test(cv)),Predictions);
 
 %---------------Visualizing Training Results
 labels = unique(data.Purchased);
-classifier_name = 'Naive Bayes (Training Results)';
+classifier_name = 'SVM (Training Results)';
 
 Age_range = min(data.Age(training(cv)))-1:0.01:max(data.Age(training(cv)))+1;
 Estimated_salary_range = min(data.EstimatedSalary(training(cv)))-1:0.01:max(data.EstimatedSalary(training(cv)))+1;
@@ -60,7 +57,7 @@ legend(labels,'Location',[0.45,0.01,0.45,0.05],'Orientation','Horizontal');
  
 %---------------Visualizing Test Results 
 labels = unique(data.Purchased);
-classifier_name = 'Naive Bayes (Testing Results)';
+classifier_name = 'SVM  (Testing Results)';
 
 Age_range = min(data.Age(training(cv)))-1:0.01:max(data.Age(training(cv)))+1;
 Estimated_salary_range = min(data.EstimatedSalary(training(cv)))-1:0.01:max(data.EstimatedSalary(training(cv)))+1;
