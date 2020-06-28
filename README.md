@@ -16,6 +16,7 @@ Introductory write-up for machine learning by using MATLAB. It consist all neces
 - K-Nearest Neighbour
 - Naive Bayes
 - Decision Tree
+- Support Vector Machines
 ## Usage
   You may use Preprocessing Guide to import and process data and then decide which algorithm to make prediction and analyze the data.
 ## Authors
