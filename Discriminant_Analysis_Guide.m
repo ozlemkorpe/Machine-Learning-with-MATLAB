@@ -15,12 +15,8 @@ classification_model = fitcdiscr(data,'Purchased~Age+EstimatedSalary');
 
 %--------------- Customization for classifier
 
-% KernelFucntions: linear, gaussian, polynomial
-% classification_model = fitcsvm(data,'Purchased~Age+EstimatedSalary','KernelFunction','gaussian');
-
-% OutlierFraction: Can be applied on a data with outliers
-% Round 0.10 of the instances are outliers in the data. Remove 0.10 of the instances as outliers.
-% classification_model = fitcsvm(data,'Purchased~Age+EstimatedSalary','OutlierFraction',0.1);
+% DiscrimType: linear, quadratic
+% classification_model = fitcdiscr(data,'Purchased~Age+EstimatedSalary','DiscrimType','quadratic');
 
 %---------------Partitioning
 cv = cvpartition(classification_model.NumObservations, 'HoldOut', 0.2);
