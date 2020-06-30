@@ -18,6 +18,7 @@ Introductory write-up for machine learning by using MATLAB. It consist all neces
 - Decision Tree
 - Support Vector Machines
 - Discriminant Analysis
+- Ensembles
 ## Usage
   You may use Preprocessing Guide to import and process data and then decide which algorithm to make prediction and analyze the data.
 ## Authors
