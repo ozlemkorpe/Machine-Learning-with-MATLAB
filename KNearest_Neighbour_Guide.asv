@@ -10,7 +10,7 @@
 
 % 4- The new datapoint is assigned to the category whit most neighbours.
 
-data = readtable('Datasets\Social_Network_Ads.csv');
+data = readtable(Datasets\Social_Network_Ads.csv');
 
 %--------Preprocess
 sum(ismissing(data)); % Count of missing values in columns

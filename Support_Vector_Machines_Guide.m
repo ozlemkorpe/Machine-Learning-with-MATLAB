@@ -1,7 +1,7 @@
 %%%-------------Support Vector Machines (SVM)
 
 %---------------Importing Dataset
-data = readtable('C:\Users\Asus\Desktop\necessary\Naive Bayes\Social_Network_Ads.csv');
+data = readtable('Datasets\Social_Network_Ads.csv');
 
 %---------------Feature Scaling (Standardization Method)
 stand_age = (data.Age - mean(data.Age))/std(data.Age);

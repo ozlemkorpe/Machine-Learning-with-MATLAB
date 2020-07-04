@@ -1,9 +1,9 @@
 clear;
 % Import the dataset
-dataread1 = readtable ('C:\Users\Asus\Desktop\necessary\Data_1.csv');
-dataread2 = readtable ('C:\Users\Asus\Desktop\necessary\Data_2.csv');
-dataread3 = readtable ('C:\Users\Asus\Desktop\necessary\Data_3.csv');
-dataread4 = readtable ('C:\Users\Asus\Desktop\necessary\Data_4.csv');
+dataread1 = readtable ('Datasets\Data_1.csv');
+dataread2 = readtable ('Datasets\Data_2.csv');
+dataread3 = readtable ('Datasets\Data_3.csv');
+dataread4 = readtable ('Datasets\Data_4.csv');
 % Data preprocessing
 
 % Handling missing values
@@ -37,7 +37,7 @@ dataread4 = readtable ('C:\Users\Asus\Desktop\necessary\Data_4.csv');
     %dataread4 = normalize_age;
     
 % Handling Outliers (Aykýrý Deðerler)
-    dataread5 = readtable ('C:\Users\Asus\Desktop\necessary\Data_5.csv');
+    dataread5 = readtable ('Datasets\Data_5.csv');
     
     % Method 1: Deleting Rows
     outliers = isoutlier(dataread5.Age); % 10X1 array consist of 1s and 0s. 1 is where outlier is
@@ -62,13 +62,13 @@ dataread4 = readtable ('C:\Users\Asus\Desktop\necessary\Data_4.csv');
     
     %----- Dealing with Categorical Data with order relation
     
-  dataread6 = readtable ('C:\Users\Asus\Desktop\necessary\Data_6.csv');
+  dataread6 = readtable ('Datasets\Data_6.csv');
   new_variable = encoding_categorical_data(dataread6.YearlyIncome,{'Low','Average','High','Very High'}, [1 2 3 5]) ;
   encodeddata6 = dataread6;
   encodeddata6.YearlyIncome = new_variable ;
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SAVE PROCESSED DATA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-writetable(encodeddata6, 'C:\Users\Asus\Desktop\saved_data.csv');
+writetable(encodeddata6, 'Results\saved_data.csv');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SCRIPTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
