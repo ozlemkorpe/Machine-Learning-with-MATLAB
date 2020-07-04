@@ -1,11 +1,11 @@
-%--------------- Ensembles Guide
+%Ensembles Guide
 
 % Generate different datasets from one dataset. Use seperated datasets with
 % different classifiers. Combine all classifiers to obtain a super
 % classifier.
 
 %---------------Importing Dataset
-data = readtable('Datasets\Social_Network_Ads.csv');
+data = readtable('C:\Users\Asus\Desktop\necessary\Naive Bayes\Social_Network_Ads.csv');
 
 %---------------Feature Scaling (Standardization Method)
 stand_age = (data.Age - mean(data.Age))/std(data.Age);
@@ -27,8 +27,8 @@ data.EstimatedSalary = stand_estimted_salary;
 %Changing the classification templates
 % classification_model = fitcensemble(data,'Purchased~Age+EstimatedSalary','Learners', {templateTree('MinLeafSize', 10), templateDiscriminant()}, 'NumLearningCycles', 3);
 
-%Adding message while classifiers are building for keeping track of computational process
-classification_model = fitcensemble(data,'Purchased~Age+EstimatedSalary','NPrint', 5, 'Learners', {templateTree('MinLeafSize', 10), templateDiscriminant()}, 'NumLearningCycles', 15);
+%Adding message while classifiers are building
+% classification_model = fitcensemble(data,'Purchased~Age+EstimatedSalary','NPrint', 5, 'Learners', {templateTree('MinLeafSize', 10), templateDiscriminant()}, 'NumLearningCycles', 3);
 
 %---------------Partitioning
 cv = cvpartition(classification_model.NumObservations, 'HoldOut', 0.2);
