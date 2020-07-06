@@ -58,3 +58,7 @@ Results_K = Results_K1 + Results_K2 + Results_K3 + Results_K4 + Results_K5;
 
 %Alternate Way
 Results = confusionmat(table2cell(data(:,end)),Predictions);
+
+%Producce confusion matrix stats for two categories. Not Purchased and
+%Purchased in this example
+Evaluation_results = confusionmatStats(table2cell(data(:,end)), Predictions);
