@@ -1,14 +1,4 @@
-%---------------------K-Nearest Neighbour Algorithm------------------------
-
-% 1- Choose the number of k neighbours.
-
-% 2- Compute the k neighbors of the new data point according to some
-% distance measure such as Euclidean.
-
-% 3- Count the number of data points from each category among the
-% neighbours computed in step 2.
-
-% 4- The new datapoint is assigned to the category whit most neighbours.
+%---------------------Validation Methods------------------------
 
 data = readtable('Datasets\Social_Network_Ads.csv');
 
