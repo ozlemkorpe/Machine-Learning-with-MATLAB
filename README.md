@@ -22,6 +22,9 @@ Introductory write-up for machine learning by using MATLAB. It consist all neces
 ## Validation
 - Holdout
 - KFold
+## Clustering
+- K-means
+- Hierarchical clustering
 ## Usage
   You may use Preprocessing Guide to import and process data and then decide which algorithm to make prediction and analyze the data.
 ## Authors
