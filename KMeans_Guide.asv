@@ -25,13 +25,4 @@ SpendingPlot = plot(data.SpendingScore);
 
 % Perform Feature Scaling (Standardization Method)
 stand_income = (data.AnnualIncome - mean(data.AnnualIncome)) / std(data.AnnualIncome);
-data.AnnualIncome = stand_income; 
-
-stand_spending = (data.SpendingScore - mean(data.SpendingScore)) / std(data.SpendingScore);
-data.SpendingScore = stand_spending; 
-
-% Select columns for clustering
-selected_data = data(:,4:5);
-
-%Data must be an array to be used in clustering algorithm
-arrayed_data = table2array(selected_data);
+data.AnnualIncome = stand_I
