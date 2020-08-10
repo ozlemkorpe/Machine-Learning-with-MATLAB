@@ -47,12 +47,7 @@ i = inconsistent(z,7); % 7 is the deepest link depth
 % Col2 represents standard deviation of all links in calculation
 % Col3 represents number of links included in calculation
 % Col4 represents inconsistency score
-[a,b]= max(i(:,4)); % max inconsistency score and save it in a and its index in b
-
-% Perform clustering
-% Set treshold as little less than the max inconsistent element.With cutoff
-% method (heights)
-C= cluster(z,'cutoff', z(b,3)-0.1, 'Criterion', 'distance');
+[a,b]= max(i(:,4)); % max inconsistency score
 
 
 %------- Visualization
