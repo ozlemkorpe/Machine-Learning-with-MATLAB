@@ -56,17 +56,13 @@ C= cluster(z,'cutoff', z(b,3)-0.1, 'Criterion', 'distance');
 
 
 %------- Visualization
-% data = arrayed_data;
-% figure,
-% 
-% gscatter(data(:,1),data(:,2),idx);
-% hold on
-% 
-% for i=1:6
-%     scatter(C(i,1),C(i,2),96,'black','filled');
-% end
-% 
-% legend({'Cluster 1', 'Cluster 2', 'Cluster 3', 'Cluster 4', 'Cluster 5','Cluster 6' })
-% xlabel('Annual Income');
-% ylabel('Spending Score');
-% hold off
+data = arrayed_data;
+figure,
+
+gscatter(data(:,1),data(:,2),C);
+hold on
+
+legend({'Cluster 1', 'Cluster 2', 'Cluster 3', 'Cluster 4', 'Cluster 5' })
+xlabel('Annual Income');
+ylabel('Spending Score');
+hold off
