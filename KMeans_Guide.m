@@ -35,3 +35,34 @@ selected_data = data(:,4:5);
 
 %Data must be an array to be used in clustering algorithm
 arrayed_data = table2array(selected_data);
+
+% Apply Elbow method to find right number of clusters
+WCSS = [];
+for k=1:10
+    sumd=0;
+    [idx,C,sumd] = kmeans(arrayed_data,k);
+    WCSS(k) = sum(sumd);
+end
+
+plot(1:10, WCSS);
+
+%------- Perform k means
+%idx tell us which object belongs to which cluster, c is centroid point of
+%each cluster
+[idx,C] = kmeans(arrayed_data,6);
+
+%------- Visualization
+data = arrayed_data;
+figure,
+
+gscatter(data(:,1),data(:,2),idx);
+hold on
+
+for i=1:6
+    scatter(C(i,1),C(i,2),96,'black','filled');
+end
+
+legend({'Cluster 1', 'Cluster 2', 'Cluster 3', 'Cluster 4', 'Cluster 5','Cluster 6' })
+xlabel('Annual Income');
+ylabel('Spending Score');
+hold off
